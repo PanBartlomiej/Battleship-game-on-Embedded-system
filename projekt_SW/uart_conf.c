@@ -72,15 +72,10 @@ void wyslij_info(const uint8_t info)
 	LPC_UART0->THR = info;
 }
 
-void czekaj_na_potwierdzenie()
-{
-	while (LPC_UART0->RBR != CONFIG_READY)
-		;
-}
 
 void czytaj_info(uint8_t *info)
 {
-	do
+do
 	{
 		*info = LPC_UART0->RBR;
 	} while (*info == 0);

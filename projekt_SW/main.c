@@ -13,10 +13,16 @@
 #include "TP_config.h"
 #include "uart_conf.h"
 #include "plansza.h"
+#include "gra.h"
 
+extern bool tura ;
+extern char moje_statki[12][12];
+extern char statki_przciwnika[12][12];
 
 int main()
 {
+  int moje_nietrafione_statki = 20;
+  char str[21];
 
 	UART_konfiguracja();
 	
@@ -28,34 +34,35 @@ int main()
 	LPC_GPIOINT->IO0IntEnF = 1 << 19;
 	NVIC_EnableIRQ(EINT3_IRQn);
 	
-	
 	caly_ekran(LCDWhite);
 	kalibracja();
 	
-	char strx[6];
-	char stry[6];
-	
-rysuj_plansze();
-	while(1){
-		
-		while(flaga == 0);
-			sprintf(strx,"X_nie=%d",(int)(X));
-			sprintf(stry,"Y_nie=%d",(int)(Y));
-			wypisz(strx,10);
-			wypisz(" ",1);
-			wypisz(stry,10);
-		  wypisz("  ",2);
-			touchpad_to_LCD_XY();
-			napis(X,Y,"a",1);
-			sprintf(strx,"X=%d",(int)(X));
-			sprintf(stry,"Y=%d",(int)(Y));
-			wypisz(strx,6);
-			wypisz(" ",1);
-			wypisz(stry,6);
-		  wypisz(" ",1);
-		while(flaga == 1);
-		caly_ekran(LCDWhite);
+	inicjalizacja_plansz();
 
+	uzupelnanie_moich_statow();
+
+  caly_ekran(LCDWhite);
+  rysuj_plansze(statki_przeciwnika);
+  
+	while(1){
+		if(tura){
+      napis(240,20,"Twój ruch       ",16);
+		  strzelanie();
+			tura = !tura;
+		}
+		else{
+      napis(240,20,"Tura przeciwnika",16);
+		  moje_nietrafione_statki -= czekaj_na_strzal();
+		  tura = !tura;
+      if(moje_nietrafione_statki==0){
+        napis(100,100,"PRZEGRAŁEŚ",10)
+        break;
+      }
+      else{
+        sprintf(str,"zostalo mi %d statków",moje_nietrafione_statki);
+        napis(270,20,str,21);
+      }
+		}
 	}
-		
+	while(1);
 }

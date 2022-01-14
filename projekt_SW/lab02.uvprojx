@@ -312,7 +312,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>0</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -406,6 +406,26 @@
               <FileName>TP_Open1768.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\TP_Open1768.c</FilePath>
+            </File>
+            <File>
+              <FileName>plansza.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\plansza.c</FilePath>
+            </File>
+            <File>
+              <FileName>uart_conf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\uart_conf.c</FilePath>
+            </File>
+            <File>
+              <FileName>TP_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\TP_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>gra.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\gra.c</FilePath>
             </File>
           </Files>
         </Group>
